@@ -9,10 +9,9 @@ TotalWorkingHr=0;
 TotalWorkingDays=1;
 totalEmpHr=0;
 
-while [[ $totalEmpHr -le $max_hour && $TotalWorkingDays -lt $working_days ]]
-do
-        check=$((RANDOM%3))
-        case $check in
+function work_hr()
+{
+        case $1 in
                 1)
                         empHr=8;
                         ;;
@@ -24,6 +23,12 @@ do
                         empHr=0;
                         ;;
         esac
+echo $empHr
+}
+
+while [[ $totalEmpHr -le $max_hour && $TotalWorkingDays -lt $working_days ]]
+do
+        empHr=$(work_hr $((RANDOM%3)));
         totalEmpHr=$(($totalEmprHr+$empHr));
 	if (( $totalEmpHr > $max_hour ))
 	then
